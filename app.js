@@ -35,3 +35,7 @@ app.post('/profile', (req,res)=>{
     newprofile.Name=req.body.name;
     newprofile.save();
 })
+
+app.get('/yay', (req,res)=>{
+    res.send("Yay");
+})
