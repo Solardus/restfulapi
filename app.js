@@ -7,8 +7,8 @@ const client = require('mongoose');
 const uri = "mongodb+srv://Owner:kfJq2LPkZ4AY3ugR@chatappcluster.dumlv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 client.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-
-app.listen(8000,() => {
+const port = process.env.port || 8000;
+app.listen(port,() => {
     console.log("Server Started");
 })
 
