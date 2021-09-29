@@ -2,6 +2,7 @@ const express = require ('express');
 const app = express();
 app.use(express.json());
 const profile=require('./profile');
+const score=require('./score');
 
 const client = require('mongoose');
 const uri = "mongodb+srv://Owner:kfJq2LPkZ4AY3ugR@chatappcluster.dumlv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -38,4 +39,39 @@ app.post('/profile', (req,res)=>{
 
 app.get('/yay', (req,res)=>{
     res.send("Yay");
+})
+
+app.delete('/leaderboard', (req,res)=>{
+
+})
+
+app.get('/leaderboard', (req,res)=>{
+
+})
+
+app.post('/leaderboard', (req,res)=>{
+
+})
+
+app.patch('/leaderboard', (req,res)=>{
+
+})
+
+app.delete('/score', (req,res)=>{
+
+})
+
+app.get('/score', (req,res)=>{
+
+})
+
+app.post('/score', (req,res)=>{
+    let newscore = score();
+    newscore.Name=req.body.Name;
+    newscore.Score=req.body.Score;
+    newscore.save();
+})
+
+app.patch('/score', (req,res)=>{
+    
 })
