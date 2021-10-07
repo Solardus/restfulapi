@@ -41,28 +41,13 @@ app.get('/yay', (req,res)=>{
     res.send("Yay");
 })
 
-app.delete('/leaderboard', (req,res)=>{
-
-})
-
-app.get('/leaderboard', (req,res)=>{
-
-})
-
-app.post('/leaderboard', (req,res)=>{
-
-})
-
-app.patch('/leaderboard', (req,res)=>{
-
-})
-
-app.delete('/score', (req,res)=>{
-
-})
-
-app.get('/score', (req,res)=>{
-
+app.get('/leaderboard', async (req,res)=>{
+    let scores = await score.find({});
+    console.log(scores[0]._doc.Name);
+    let lb = scores.sort(function (a,b){
+        return b._doc.Score - a._doc.Score;
+    })
+    res.send(lb);
 })
 
 app.post('/score', (req,res)=>{
@@ -70,8 +55,6 @@ app.post('/score', (req,res)=>{
     newscore.Name=req.body.Name;
     newscore.Score=req.body.Score;
     newscore.save();
+    res.send("done");
 })
 
-app.patch('/score', (req,res)=>{
-    
-})
