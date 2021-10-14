@@ -5,6 +5,7 @@ const profile=require('./profile');
 const score=require('./score');
 
 const client = require('mongoose');
+const Score = require('./score');
 const uri = "mongodb+srv://Owner:kfJq2LPkZ4AY3ugR@chatappcluster.dumlv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 client.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -43,11 +44,22 @@ app.get('/yay', (req,res)=>{
 
 app.get('/leaderboard', async (req,res)=>{
     let scores = await score.find({});
-    console.log(scores[0]._doc.Name);
     let lb = scores.sort(function (a,b){
         return b._doc.Score - a._doc.Score;
     })
-    res.send(lb);
+
+    const top3 = [];
+    for(let i = 0;i<3;i++)
+    {
+        let entry = {
+            Name: scores[i].Name,
+            Score: scores[i].Score,
+            Position: i+1
+        }
+        top3.push(entry)
+    }
+
+    res.send(top3);
 })
 
 app.post('/score', (req,res)=>{
