@@ -6,6 +6,7 @@ const score=require('./score');
 
 const client = require('mongoose');
 const Score = require('./score');
+const Message = require('./message')
 const uri = "mongodb+srv://Owner:kfJq2LPkZ4AY3ugR@chatappcluster.dumlv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 client.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -68,5 +69,31 @@ app.post('/score', (req,res)=>{
     newscore.Score=req.body.Score;
     newscore.save();
     res.send("done");
+})
+
+
+app.post('/message', (req,res)=>{
+    let newmessage = Message();
+    newmessage.Name = req.body.Name;
+    newmessage.Text = req.body.Text;
+    newmessage.save();
+    res.send("done");
+})
+
+app.get('/chat', async (req,res)=>{
+    let messages = await Message.find({});
+    let count =  await Message.find({}).count();
+
+    const messagelog = [];
+    for(let i = 0;i<count;i++)
+    {
+        let entry = {
+            Name: messages[i].Name,
+            Text: messages[i].Text
+        }
+        messagelog.push(entry)
+    }
+
+    res.send(messagelog);
 })
 
