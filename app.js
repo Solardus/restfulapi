@@ -10,7 +10,7 @@ const Message = require('./message')
 const uri = "mongodb+srv://Owner:kfJq2LPkZ4AY3ugR@chatappcluster.dumlv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 client.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const port = 80;
+const port = 5000;
 app.listen(port,() => {
     console.log("Server Started");
 })
